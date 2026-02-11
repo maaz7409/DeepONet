@@ -1,12 +1,12 @@
-## Deep Operator Networks (DeepONet)
+# Deep Operator Networks (DeepONet)
 
-### Introduction
+## Introduction
 
 Standard MLPs are universal function approximator i.e. they're good at approximating functions ( that maps set of numbers to set of numbers).However, MLPs struggle to approximate operator (which maps function to function), partly due to Data structure and computation limitations. To approximate Operators, we use DeepONet, which is a universal operator approximator.
 
 Here, We considered example of 1D diffusion with variable diffusion coefficient $D(x)$. We made a DeepONet network which takes $D(x)$ as input and output $u(x,t)$.
 
-### 1D Diffusion equation
+## 1D Diffusion equation
 
 Fick's second law for variable diffusion coefficient is described as : 
 
@@ -28,11 +28,11 @@ $$
 Now, in order to have a labelled dataset $D(x) \to u(x,t)$, we need to generate the function $D(x)$, and then solve for $u(x,t)$ for each $D(x)$. This is  discussed in upcoming sections.
 
 
-### Defining the problem domain
+## Defining the problem domain
 
 We consider $x \in [0,1]$ and $t \in [0,1]$. We can think of it as 1D pipe spanning from $x=0$ to $x=1$ where concentration is being monitored.
 
-### Generating D(x)
+## Generating D(x)
 
 First of all, We will generate many diffusion functions $D_j(x)$, $j = 1,2,...,N$ where $N$ is total number of Dataset samples.
 
