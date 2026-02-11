@@ -11,9 +11,7 @@ Here, We considered example of 1D diffusion with variable diffusion coefficient 
 Fick's second law for variable diffusion coefficient is described as : 
 
 $$
-\begin{equation*}
     \frac{\partial u}{\partial t} = \frac{\partial}{\partial x}\left[D \frac{\partial u}{\partial x}\right]
-\end{equation*}
 $$
 
 where :
@@ -21,12 +19,10 @@ where :
 - $D=D(x)$ is Diffusion coefficient varying with $x$
 
 
-The above equation can be written as :
+Using product rule, the above equation can be written as :
 
 $$
-\begin{equation*}
-    \frac{\partial u}{\partial t} = D \frac{\partial^2 u}{\partial x^2} + \frac{\partial D}{\partial x} \frac{\partial u}{\partial x} \tag*{(product rule)}
-\end{equation*}
+    \frac{\partial u}{\partial t} = D \frac{\partial^2 u}{\partial x^2} + \frac{\partial D}{\partial x} \frac{\partial u}{\partial x}
 $$
 
 Now, in order to have a labelled dataset $D(x) \to u(x,t)$, we need to generate the function $D(x)$, and then solve for $u(x,t)$ for each $D(x)$. This is  discussed in upcoming sections.
@@ -89,7 +85,7 @@ We consider ends of this 1D pipe to be open. As a result, we get $u(x\text{=}0,t
 
 - 2. Neumann Boundary Conditions
 
-We consider ends of this pipe to be closed. As a result, we get $\frac{\partial u}{\partial x}|_{x=0}=0$ and $\frac{\partial u}{\partial x}|_{x=1}=0$.
+We consider ends of this pipe to be closed. As a result, we get $\frac{\partial u}{\partial x}\vert_{x=0}=0$ and $\frac{\partial u}{\partial x}\vert_{x=1}=0$.
 
 ![alt text](assets/bc.png)
 
@@ -163,25 +159,21 @@ $$
 \end{equation*}
 $$
 
-The output layer of Trunk Net also has $p$ neurons and output is $\mathbf{T}_{N \times p}$.
+The output layer of Trunk Net also has $p$ neurons and output is $\mathbf{T}_{Q \times p}$.
 
 Finally, output from both Branch Net and Trunk Net are merged through operation dyadic product (outer product) $\otimes$ as 
 
 $$
-\begin{equation}
     \mathbf{U_{pred}} = \mathbf{BT}^\top + \mathbf{bias}
-\end{equation}
 $$
 
 with loss function defined as 
 
 $$
-\begin{equation}
     \mathcal{L}_\theta = \frac{1}{MN}\Vert\mathbf{U_{pred}} - \mathbf{U_{true}}\Vert_2^2
-\end{equation}
 $$
 
-By training this (\& hence minimising $\mathcal{L}$), we learn the parameters $\theta$ to learn operator $\mathcal{G}_{\theta}$ such that $\mathcal{G}_{\theta} \approx \mathcal{G}$,
+By training this (\& hence minimising $\mathcal{L}$), we learn the parameters $\theta$ to learn operator $G_{\theta}$ such that $G_{\theta} \approx \mathcal{G}$ ,
 
  where $\mathcal{G}$ is such that $\mathcal{G}(D)(u) : \mathcal{A} \to \mathcal{U}$
 
@@ -192,7 +184,7 @@ Here $\mathcal{A}$ is input function space (Vector space of functions containing
 We generated data and trained our model for both boundary conditions.
 
 
-Model was trained on 800 instances of training data, each for Dirichlet and Neumann B.C. and was evaluted at 200 instances of test set data. It performed well with $3.98\%$ relative error for Dirichlet B.C. and $2.56\%$ relative error for Neumann B.C. (error metric being $E = \frac{\| U_{true} - U_{predicted}\|_2}{\|U_{true}\|_2}$).
+Model was trained on 800 instances of training data, each for Dirichlet and Neumann B.C. and was evaluted at 200 instances of test set data. It performed well with 3.98% relative error for Dirichlet B.C. and 2.56% relative error for Neumann B.C. (error metric being $E = \frac{\Vert U_{true} - U_{predicted}\Vert_2}{\Vert U_{true}\Vert_2}$ ).
 
 
 Below is result for one of the 200 predictions on test set for each B.C.
